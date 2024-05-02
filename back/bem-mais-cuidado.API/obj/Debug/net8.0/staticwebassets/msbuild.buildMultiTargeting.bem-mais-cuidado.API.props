@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\bem-mais-cuidado.API.props" />
+</Project>

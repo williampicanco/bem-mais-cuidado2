@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\bem-mais-cuidado.API.props" />
+</Project>

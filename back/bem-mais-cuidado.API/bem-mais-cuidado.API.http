@@ -1,0 +1,6 @@
+@bem_mais_cuidado.API_HostAddress = http://localhost:5058
+
+GET {{bem_mais_cuidado.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
