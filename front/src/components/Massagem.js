@@ -3,12 +3,10 @@ import React from "react";
 export default function Massagem(props){
     function localLabel(param){
         switch(param){
-          case '1':
-            return 'Prédio Adm';
-          case '2':
-            return 'BUS';
-          case '3':
-            return 'ZPE';
+          case 'Prédio Adm':
+          case 'BUS':        
+          case 'ZPE':       
+            return param; 
           default:
             return 'Não definido';
         }
@@ -16,21 +14,19 @@ export default function Massagem(props){
     
        function statusLabel(param){
         switch(param){
-          case '1':
-            return 'Disponível';
-          case '2':
-            return 'Reservada';
+          case 'Disponível':         
+          case 'Reservada':  
+            return param;
           default:
             return 'Não definido';
-    
         }
        }
     
        function statusStyle(param, icone){
         switch(param){
-          case '1':
+          case 'Disponível':
             return icone ? 'circle' : 'success';
-          case '2':
+          case 'Reservada':
             return icone ? 'circle' : 'danger';
           default:
             return 'Não definido';

@@ -88,10 +88,10 @@ export default function MassagemForm(props) {
               className="form-select"
               value={massagem.local}
           >
-            <option defaultValue='0'>Selecione...</option>
-            <option value="1">Prédio Administrativo</option>
-            <option value="2">BUS</option>
-            <option value="3">ZPE</option>
+            <option value='NaoDefinido'>Selecione...</option>
+            <option value="Prédio Administrativo">Prédio Administrativo</option>
+            <option value="BUS">BUS</option>
+            <option value="ZPE">ZPE</option>
           </select>
         </div>
   

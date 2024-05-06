@@ -2,37 +2,55 @@ import {useEffect, useState } from 'react';
 import './App.css';
 import MassagemForm from './components/MassagemForm';
 import MassagemLista from './components/MassagemLista';
+import api from './api/agendamentos';
 
 function App() {
-  const [index, setIndex] = useState(0);
   const [massagens, setMassagens] = useState([])
   const [massagem, setMassagem] = useState({id:0})
 
+  const pegaTodosAgendamentosBemMaisCuidado = async () => {
+    const response = await api.get('agendamentos');
+    return response.data;
+  };
+  //**SELECT */
   useEffect(() => {
-    massagens.length <= 0 ? setIndex(1) :
-    setIndex(Math.max.apply(Math,massagens.map(item => item.id)) + 1)
-  }, [massagens])
+    const getAgendamentos = async () => {
+      const todosAgendamentos = await pegaTodosAgendamentosBemMaisCuidado();
+      if (todosAgendamentos) setMassagens(todosAgendamentos);
+    };
+    getAgendamentos();
+  }, []);
 
-  function addMassagem(mas) {
-    setMassagens([...massagens, 
-          {  ...mas, id: index }]
-      );
+
+  //** Add seção de massagem */
+   const addMassagem = async (mas) => {
+      const response = await api.post('agendamentos', mas);
+      setMassagens([...massagens, response.data]);
   }
 
   function cancelarMassagem() {
     setMassagem({ id: 0 });
   }
 
-  // ERRO AQUI ...
-  function atualizarMassagem(mas){
-    setMassagens(massagens.map(item => 
-        item === mas.id ? mas : item ))
+  //**UPDATE */
+  const atualizarMassagem = async (mas) => {
+    const response = await api.put(`massagem/${mas.id}`, mas)
+    const { id } = response.data;
+    setMassagens(
+      massagens.map((item) => (item === mas.id ? response.data : item ))
+    );
     setMassagem({ id: 0 })
   }
 
-  function deletarMassagem(id){
-    const massagemFiltradas = massagens.filter(massagem => massagem.id !== id) 
-    setMassagens([...massagemFiltradas])
+  //**DELETE */
+  const deletarMassagem = async (id) => {
+      if (await api.delete(`massagem/${id}`))
+      {
+        const massagemFiltradas = massagens.filter(
+          massagem => massagem.id !== id) 
+        setMassagens([...massagemFiltradas])
+      }
+      
   }
 
   function pegarMassagem(id) {
